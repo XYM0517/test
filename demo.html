@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>门户首页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", "Segoe UI", Arial, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* 顶部导航栏 */
+        .header {
+            background: linear-gradient(135deg, #1890ff, #096dd9);
+            color: #fff;
+            padding: 0 40px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-menu li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .nav-menu li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* 轮播图 */
+        .banner {
+            height: 360px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .banner h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .banner p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .banner .btn {
+            background: #fff;
+            color: #667eea;
+            padding: 12px 36px;
+            border: none;
+            border-radius: 24px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .banner .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 内容区 */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* 功能卡片区 */
+        .section-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 24px;
+            padding-left: 12px;
+            border-left: 4px solid #1890ff;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            margin-bottom: 50px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 30px 24px;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #fff;
+        }
+
+        .card:nth-child(1) .card-icon { background: linear-gradient(135deg, #ff6b6b, #ee5a24); }
+        .card:nth-child(2) .card-icon { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .card:nth-child(3) .card-icon { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+        .card:nth-child(4) .card-icon { background: linear-gradient(135deg, #fa709a, #fee140); }
+
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .card p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* 新闻资讯区 */
+        .news-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .news-list {
+            background: #fff;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .news-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-item a {
+            color: #333;
+            text-decoration: none;
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding-right: 20px;
+        }
+
+        .news-item a:hover {
+            color: #1890ff;
+        }
+
+        .news-item .date {
+            color: #999;
+            font-size: 13px;
+        }
+
+        .notice {
+            background: #fff;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .notice-item {
+            padding: 12px 0;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .notice-item:last-child {
+            border-bottom: none;
+        }
+
+        .notice-item .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #fff7e6;
+            color: #fa8c16;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+        }
+
+        /* 页脚 */
+        .footer {
+            background: #001529;
+            color: #aaa;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: #aaa;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #fff;
+        }
+
+        .footer .links {
+            margin-bottom: 12px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .header {
+                padding: 0 16px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .banner h1 {
+                font-size: 28px;
+            }
+
+            .banner p {
+                font-size: 14px;
+            }
+
+            .news-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <header class="header">
+        <div class="logo">企业门户</div>
+        <ul class="nav-menu">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">产品中心</a></li>
+            <li><a href="#">解决方案</a></li>
+            <li><a href="#">新闻资讯</a></li>
+            <li><a href="#">关于我们</a></li>
+            <li><a href="#">联系我们</a></li>
+        </ul>
+        <div class="user-info">
+            <div class="avatar">U</div>
+            <span>用户</span>
+        </div>
+    </header>
+
+    <!-- 轮播横幅 -->
+    <section class="banner">
+        <h1>欢迎访问企业门户</h1>
+        <p>专业、高效、创新，为您打造一站式服务平台</p>
+        <button class="btn">立即了解</button>
+    </section>
+
+    <!-- 内容区 -->
+    <div class="container">
+        <!-- 功能卡片 -->
+        <h2 class="section-title">核心服务</h2>
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-icon">⚡</div>
+                <h3>高效办公</h3>
+                <p>智能化办公系统，提升团队协作效率</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <h3>数据分析</h3>
+                <p>实时数据可视化，助力科学决策</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🛡️</div>
+                <h3>安全防护</h3>
+                <p>全方位安全体系，保障数据资产</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🌐</div>
+                <h3>云上服务</h3>
+                <p>弹性云计算，按需扩展资源</p>
+            </div>
+        </div>
+
+        <!-- 新闻资讯 -->
+        <h2 class="section-title">新闻资讯</h2>
+        <div class="news-section">
+            <div class="news-list">
+                <div class="news-item">
+                    <a href="#">公司成功通过 ISO27001 信息安全管理体系认证</a>
+                    <span class="date">2026-07-09</span>
+                </div>
+                <div class="news-item">
+                    <a href="#">2026 年度合作伙伴大会圆满落幕，共绘发展新蓝图</a>
+                    <span class="date">2026-07-05</span>
+                </div>
+                <div class="news-item">
+                    <a href="#">全新一代云平台正式上线，性能提升 300%</a>
+                    <span class="date">2026-06-28</span>
+                </div>
+                <div class="news-item">
+                    <a href="#">公司荣获"年度最佳企业服务商"称号</a>
+                    <span class="date">2026-06-20</span>
+                </div>
+                <div class="news-item">
+                    <a href="#">与多家行业领军企业达成战略合作协议</a>
+                    <span class="date">2026-06-15</span>
+                </div>
+            </div>
+            <div class="notice">
+                <h3 style="margin-bottom: 16px; color: #333;">📢 通知公告</h3>
+                <div class="notice-item">
+                    <span class="tag">公告</span>
+                    关于端午节放假安排的通知
+                </div>
+                <div class="notice-item">
+                    <span class="tag">公告</span>
+                    系统将于本周六凌晨进行升级维护
+                </div>
+                <div class="notice-item">
+                    <span class="tag">通知</span>
+                    关于举办年度技术分享会的通知
+                </div>
+                <div class="notice-item">
+                    <span class="tag">通知</span>
+                    新版员工手册发布，请查阅
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="links">
+            <a href="#">关于我们</a> |
+            <a href="#">联系方式</a> |
+            <a href="#">招贤纳士</a> |
+            <a href="#">隐私政策</a> |
+            <a href="#">友情链接</a>
+        </div>
+        <p>Copyright © 2026 企业门户  All Rights Reserved</p>
+    </footer>
+</body>
+</html>
