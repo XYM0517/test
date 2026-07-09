@@ -1,0 +1,23 @@
+test3.html
+  3b671e0de8e433f1 1-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.0.39",
+  "base_commit_sha": "8d12198bafba667b2c0264851af3c46c07ad3165",
+  "prompts": {
+    "3b671e0de8e433f1": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "id": "ai-thread-1783573191416617900",
+        "model": "unknown"
+      },
+      "human_author": "xuym16 <xuym16@asiainfo.com>",
+      "messages": [],
+      "total_additions": 11,
+      "total_deletions": 0,
+      "accepted_lines": 11,
+      "overriden_lines": 0
+    }
+  }
+}
