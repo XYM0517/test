@@ -3,472 +3,319 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>test4.html</title>
+    <title>计算器</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            user-select: none;
         }
 
         body {
-            font-family: "Microsoft YaHei", "Segoe UI", Arial, sans-serif;
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        /* 顶部导航栏 */
-        .header {
-            background: linear-gradient(135deg, #1890ff, #096dd9);
-            color: #fff;
-            padding: 0 40px;
-            height: 64px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo {
-            font-size: 22px;
-            font-weight: bold;
-            letter-spacing: 2px;
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-        }
-
-        .nav-menu li a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 15px;
-            padding: 8px 12px;
-            border-radius: 4px;
-            transition: background 0.3s;
-        }
-
-        .nav-menu li a:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-        }
-
-        .avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
+            font-family: "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
+            padding: 20px;
         }
 
-        /* 轮播图 */
-        .banner {
-            height: 360px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .calculator {
+            background: #1c1c1e;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            width: 320px;
+            padding: 24px;
+        }
+
+        .display {
+            background: #000;
             color: #fff;
+            text-align: right;
+            padding: 20px 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            min-height: 100px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0 20px;
+            justify-content: flex-end;
         }
 
-        .banner h1 {
-            font-size: 42px;
-            margin-bottom: 20px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .banner p {
-            font-size: 18px;
-            margin-bottom: 30px;
-            opacity: 0.95;
-        }
-
-        .banner .btn {
-            background: #fff;
-            color: #667eea;
-            padding: 12px 36px;
-            border: none;
-            border-radius: 24px;
+        .history {
+            color: #888;
             font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .banner .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        /* 内容区 */
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        /* 功能卡片区 */
-        .section-title {
-            font-size: 24px;
-            color: #333;
-            margin-bottom: 24px;
-            padding-left: 12px;
-            border-left: 4px solid #1890ff;
-        }
-
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 24px;
-            margin-bottom: 50px;
-        }
-
-        .card {
-            background: #fff;
-            border-radius: 8px;
-            padding: 30px 24px;
-            text-align: center;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-        }
-
-        .card-icon {
-            width: 64px;
-            height: 64px;
-            margin: 0 auto 16px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            color: #fff;
-        }
-
-        .card:nth-child(1) .card-icon { background: linear-gradient(135deg, #ff6b6b, #ee5a24); }
-        .card:nth-child(2) .card-icon { background: linear-gradient(135deg, #4facfe, #00f2fe); }
-        .card:nth-child(3) .card-icon { background: linear-gradient(135deg, #43e97b, #38f9d7); }
-        .card:nth-child(4) .card-icon { background: linear-gradient(135deg, #fa709a, #fee140); }
-
-        .card h3 {
-            font-size: 18px;
-            margin-bottom: 8px;
-            color: #333;
-        }
-
-        .card p {
-            color: #666;
-            font-size: 14px;
-        }
-
-        /* 新闻资讯区 */
-        .news-section {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-
-        .news-list {
-            background: #fff;
-            border-radius: 8px;
-            padding: 24px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-        }
-
-        .news-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .news-item:last-child {
-            border-bottom: none;
-        }
-
-        .news-item a {
-            color: #333;
-            text-decoration: none;
-            flex: 1;
+            min-height: 22px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            padding-right: 20px;
         }
 
-        .news-item a:hover {
-            color: #1890ff;
+        .current {
+            color: #fff;
+            font-size: 42px;
+            font-weight: 300;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
-        .news-item .date {
-            color: #999;
-            font-size: 13px;
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
         }
 
-        .notice {
-            background: #fff;
-            border-radius: 8px;
-            padding: 24px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        button {
+            border: none;
+            border-radius: 50%;
+            height: 60px;
+            font-size: 22px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.1s, filter 0.2s;
+            color: #fff;
         }
 
-        .notice-item {
-            padding: 12px 0;
-            border-bottom: 1px dashed #eee;
+        button:active {
+            transform: scale(0.95);
         }
 
-        .notice-item:last-child {
-            border-bottom: none;
+        button:hover {
+            filter: brightness(1.2);
         }
 
-        .notice-item .tag {
-            display: inline-block;
-            padding: 2px 8px;
-            background: #fff7e6;
-            color: #fa8c16;
-            border-radius: 4px;
+        .btn-fn {
+            background: #a5a5a5;
+            color: #000;
+        }
+
+        .btn-op {
+            background: #ff9f0a;
+        }
+
+        .btn-num {
+            background: #333333;
+        }
+
+        .btn-zero {
+            grid-column: span 2;
+            border-radius: 30px;
+        }
+
+        .btn-eq {
+            background: #ff9f0a;
+        }
+
+        .keyboard-hint {
+            color: #666;
             font-size: 12px;
-            margin-right: 8px;
-        }
-
-        /* 页脚 */
-        .footer {
-            background: #001529;
-            color: #aaa;
             text-align: center;
-            padding: 30px 20px;
-            font-size: 14px;
-        }
-
-        .footer a {
-            color: #aaa;
-            margin: 0 10px;
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            color: #fff;
-        }
-
-        .footer .links {
-            margin-bottom: 12px;
-        }
-
-        /* 响应式 */
-        @media (max-width: 768px) {
-            .header {
-                padding: 0 16px;
-            }
-
-            .nav-menu {
-                display: none;
-            }
-
-            .banner h1 {
-                font-size: 28px;
-            }
-
-            .banner p {
-                font-size: 14px;
-            }
-
-            .news-section {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .title {
-            text-align: center;
-            color: #fff;
-            font-size: 18px;
-            margin-bottom: 16px;
-            letter-spacing: 2px;
-        }
-
-        @media (max-width: 360px) {
-            .calculator {
-                width: 100%;
-            }
+            margin-top: 16px;
         }
     </style>
 </head>
 <body>
     <div class="calculator">
-        <div class="title">计 算 器</div>
         <div class="display">
             <div class="history" id="history"></div>
             <div class="current" id="current">0</div>
         </div>
         <div class="buttons">
-            <button class="btn-fn" onclick="clearAll()">AC</button>
-            <button class="btn-fn" onclick="toggleSign()">±</button>
-            <button class="btn-fn" onclick="inputPercent()">%</button>
-            <button class="btn-op" onclick="inputOperator('/')">÷</button>
+            <button class="btn-fn" data-action="clear">AC</button>
+            <button class="btn-fn" data-action="sign">±</button>
+            <button class="btn-fn" data-action="percent">%</button>
+            <button class="btn-op" data-op="/">÷</button>
 
-            <button class="btn-num" onclick="inputNumber('7')">7</button>
-            <button class="btn-num" onclick="inputNumber('8')">8</button>
-            <button class="btn-num" onclick="inputNumber('9')">9</button>
-            <button class="btn-op" onclick="inputOperator('*')">×</button>
+            <button class="btn-num" data-num="7">7</button>
+            <button class="btn-num" data-num="8">8</button>
+            <button class="btn-num" data-num="9">9</button>
+            <button class="btn-op" data-op="*">×</button>
 
-            <button class="btn-num" onclick="inputNumber('4')">4</button>
-            <button class="btn-num" onclick="inputNumber('5')">5</button>
-            <button class="btn-num" onclick="inputNumber('6')">6</button>
-            <button class="btn-op" onclick="inputOperator('-')">−</button>
+            <button class="btn-num" data-num="4">4</button>
+            <button class="btn-num" data-num="5">5</button>
+            <button class="btn-num" data-num="6">6</button>
+            <button class="btn-op" data-op="-">−</button>
 
-            <button class="btn-num" onclick="inputNumber('1')">1</button>
-            <button class="btn-num" onclick="inputNumber('2')">2</button>
-            <button class="btn-num" onclick="inputNumber('3')">3</button>
-            <button class="btn-op" onclick="inputOperator('+')">+</button>
+            <button class="btn-num" data-num="1">1</button>
+            <button class="btn-num" data-num="2">2</button>
+            <button class="btn-num" data-num="3">3</button>
+            <button class="btn-op" data-op="+">+</button>
 
-            <button class="btn-num btn-zero" onclick="inputNumber('0')">0</button>
-            <button class="btn-num" onclick="inputDot()">.</button>
-            <button class="btn-eq" onclick="calculate()">=</button>
+            <button class="btn-num btn-zero" data-num="0">0</button>
+            <button class="btn-num" data-action="decimal">.</button>
+            <button class="btn-eq" data-action="equals">=</button>
         </div>
+        <div class="keyboard-hint">支持键盘输入：数字 / + - * / Enter = Esc AC Backspace 退格</div>
     </div>
 
     <script>
-        let current = '0';
-        let history = '';
-        let operator = null;
-        let previous = null;
-        let shouldReset = false;
-
         const currentEl = document.getElementById('current');
         const historyEl = document.getElementById('history');
-        const opMap = { '+': '+', '-': '-', '*': '×', '/': '÷' };
+
+        let currentValue = '0';
+        let previousValue = null;
+        let operator = null;
+        let waitingForOperand = false;
+
+        function formatDisplay(value) {
+            if (value === 'Error') return value;
+            const num = parseFloat(value);
+            if (isNaN(num)) return value;
+            if (!isFinite(num)) return 'Error';
+            // 限制最大长度
+            let str = value.toString();
+            if (str.length > 12) {
+                if (str.includes('.')) {
+                    str = num.toFixed(10).replace(/\.?0+$/, '');
+                } else {
+                    str = num.toExponential(6);
+                }
+            }
+            return str;
+        }
 
         function updateDisplay() {
-            currentEl.textContent = current;
-            historyEl.textContent = history;
+            currentEl.textContent = formatDisplay(currentValue);
+            if (operator) {
+                const opSymbol = {'+': '+', '-': '−', '*': '×', '/': '÷'}[operator];
+                historyEl.textContent = `${formatDisplay(previousValue)} ${opSymbol}`;
+            } else {
+                historyEl.textContent = '';
+            }
         }
 
         function inputNumber(num) {
-            if (shouldReset) {
-                current = '0';
-                shouldReset = false;
-            }
-            if (current === '0' && num !== '.') {
-                current = num;
+            if (currentValue === 'Error') currentValue = '0';
+            if (waitingForOperand) {
+                currentValue = num;
+                waitingForOperand = false;
             } else {
-                if (current.replace(/[-.]/g, '').length < 12) {
-                    current += num;
+                if (currentValue === '0') {
+                    currentValue = num;
+                } else {
+                    if (currentValue.replace('-', '').replace('.', '').length >= 12) return;
+                    currentValue += num;
                 }
             }
             updateDisplay();
         }
 
-        function inputDot() {
-            if (shouldReset) {
-                current = '0';
-                shouldReset = false;
+        function inputDecimal() {
+            if (currentValue === 'Error') currentValue = '0';
+            if (waitingForOperand) {
+                currentValue = '0.';
+                waitingForOperand = false;
+            } else if (!currentValue.includes('.')) {
+                currentValue += '.';
             }
-            if (current.indexOf('.') === -1) {
-                current += '.';
-            }
-            updateDisplay();
-        }
-
-        function inputOperator(op) {
-            if (operator !== null && !shouldReset) {
-                calculate();
-            }
-            previous = parseFloat(current);
-            operator = op;
-            history = previous + ' ' + opMap[op];
-            shouldReset = true;
-            updateDisplay();
-        }
-
-        function calculate() {
-            if (operator === null || previous === null) return;
-            const curr = parseFloat(current);
-            let result = 0;
-            switch (operator) {
-                case '+': result = previous + curr; break;
-                case '-': result = previous - curr; break;
-                case '*': result = previous * curr; break;
-                case '/':
-                    if (curr === 0) {
-                        current = 'Error';
-                        history = '';
-                        operator = null;
-                        previous = null;
-                        shouldReset = true;
-                        updateDisplay();
-                        return;
-                    }
-                    result = previous / curr;
-                    break;
-            }
-            result = Math.round(result * 1e10) / 1e10;
-            history = previous + ' ' + opMap[operator] + ' ' + curr + ' =';
-            current = String(result);
-            operator = null;
-            previous = null;
-            shouldReset = true;
             updateDisplay();
         }
 
         function clearAll() {
-            current = '0';
-            history = '';
+            currentValue = '0';
+            previousValue = null;
             operator = null;
-            previous = null;
-            shouldReset = false;
+            waitingForOperand = false;
             updateDisplay();
         }
 
         function toggleSign() {
-            if (current === '0' || current === 'Error') return;
-            current = current.startsWith('-') ? current.slice(1) : '-' + current;
-            updateDisplay();
-        }
-
-        function inputPercent() {
-            const val = parseFloat(current);
-            current = String(val / 100);
-            updateDisplay();
-        }
-
-        document.addEventListener('keydown', function(e) {
-            const key = e.key;
-            if (/[0-9]/.test(key)) inputNumber(key);
-            else if (key === '.') inputDot();
-            else if (key === '+' || key === '-' || key === '*' || key === '/') inputOperator(key);
-            else if (key === 'Enter' || key === '=') calculate();
-            else if (key === 'Escape') clearAll();
-            else if (key === 'Backspace') {
-                if (current.length > 1 && current !== 'Error') {
-                    current = current.slice(0, -1);
-                } else {
-                    current = '0';
-                }
+            if (currentValue === 'Error') return;
+            if (currentValue !== '0') {
+                currentValue = currentValue.startsWith('-')
+                    ? currentValue.slice(1)
+                    : '-' + currentValue;
                 updateDisplay();
+            }
+        }
+
+        function percent() {
+            if (currentValue === 'Error') return;
+            currentValue = (parseFloat(currentValue) / 100).toString();
+            updateDisplay();
+        }
+
+        function performCalculation(nextOperator) {
+            if (currentValue === 'Error') return;
+            const nextValue = parseFloat(currentValue);
+
+            if (previousValue === null) {
+                previousValue = nextValue;
+            } else if (operator) {
+                const result = calculate(previousValue, nextValue, operator);
+                currentValue = String(result);
+                previousValue = result;
+            }
+
+            waitingForOperand = true;
+            operator = nextOperator;
+            updateDisplay();
+        }
+
+        function calculate(a, b, op) {
+            switch (op) {
+                case '+': return a + b;
+                case '-': return a - b;
+                case '*': return a * b;
+                case '/':
+                    if (b === 0) return 'Error';
+                    return a / b;
+                default: return b;
+            }
+        }
+
+        function equals() {
+            if (currentValue === 'Error' || operator === null || previousValue === null) return;
+            const result = calculate(previousValue, parseFloat(currentValue), operator);
+            currentValue = String(result);
+            previousValue = null;
+            operator = null;
+            waitingForOperand = false;
+            updateDisplay();
+        }
+
+        // 按钮事件
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (btn.dataset.num) {
+                    inputNumber(btn.dataset.num);
+                } else if (btn.dataset.op) {
+                    performCalculation(btn.dataset.op);
+                } else if (btn.dataset.action) {
+                    switch (btn.dataset.action) {
+                        case 'clear': clearAll(); break;
+                        case 'sign': toggleSign(); break;
+                        case 'percent': percent(); break;
+                        case 'decimal': inputDecimal(); break;
+                        case 'equals': equals(); break;
+                    }
+                }
+            });
+        });
+
+        // 键盘支持
+        document.addEventListener('keydown', (e) => {
+            if (e.key >= '0' && e.key <= '9') {
+                inputNumber(e.key);
+            } else if (e.key === '.') {
+                inputDecimal();
+            } else if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') {
+                e.preventDefault();
+                performCalculation(e.key);
+            } else if (e.key === 'Enter' || e.key === '=') {
+                e.preventDefault();
+                equals();
+            } else if (e.key === 'Escape') {
+                clearAll();
+            } else if (e.key === 'Backspace') {
+                if (currentValue === 'Error') {
+                    clearAll();
+                } else if (!waitingForOperand && currentValue.length > 0) {
+                    currentValue = currentValue.slice(0, -1) || '0';
+                    updateDisplay();
+                }
             }
         });
 
